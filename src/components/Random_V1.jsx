@@ -1,20 +1,20 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
+
+import usePokemon from "./usePokemon";
 
 function Random() {
-  useEffect(function () {
-    const fetchPokemon = async function () {
-      const res = await fetch(
-        "https://totallyaccuratepokedex.herokuapp.com/api/v1/pokemon"
-      );
-      const { data } = await res.json();
-      console.log(data);
-    };
-    fetchPokemon();
-  }, []);
+  const [pokemon, fetchPokemon] = usePokemon();
 
   return (
     <>
       <h1>Random</h1>
+      {pokemon && (
+        <>
+          <img src={pokemon.image} alt={pokemon.name} />
+          <h3>{pokemon.name}</h3>
+          <button onClick={fetchPokemon}>Click for new</button>
+        </>
+      )}
     </>
   );
 }
